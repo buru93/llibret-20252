@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pètals de tradició - Ofrena de flors de Alacant</title>
+    <style>
+        /* Base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            justify-content: center;
+        }
+        
+        .nav li {
+            margin: 5px;
+        }
+        
+        .nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        .nav a:hover, .nav a:focus {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Parallax sections */
+        .parallax-section {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            z-index: -1;
+            transform: translateZ(-1px) scale(2);
+        }
+        
+        .content {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2rem 3rem;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: translateZ(0);
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Section colors */
+        #introduccio { background-color: #3498db; }
+        
+        /* Alternating colors for flower sections */
+        #lliri { background-color: #dde7af; }
+        #rosa { background-color: #f6f8e9; }
+        #clavell { background-color: #dde7af; }
+        #dalia { background-color: #f6f8e9; }
+        #margarida { background-color: #dde7af; }
+        #monument-infantil { background-color: #f6f8e9; }
+        #monument-adult { background-color: #dde7af; }
+        
+        /* Typography */
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #222;
+            text-align: center;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #222;
+            text-align: center;
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Audio player styling */
+        .audio-container {
+            margin-top: 1.5rem;
+        }
+        
+        .custom-audio {
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 30px;
+            height: 40px;
+        }
+        
+        /* Auto-play notification */
+        .autoplay-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 30px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: opacity 0.5s ease;
+        }
+        
+        .autoplay-notification button {
+            background-color: white;
+            color: #333;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .autoplay-notification button:hover {
+            background-color: #f0f0f0;
+            transform: scale(1.05);
+        }
+        
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        /* Progress indicator */
+        .progress-container {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .progress-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .progress-dot.active {
+            background-color: white;
+            transform: scale(1.3);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        
+        /* Flower icon styling */
+        .flower-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            display: block;
+            opacity: 0.8;
+        }
+        
+        /* Intro styling */
+        .intro-content {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .intro-title {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .intro-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: #fff;
+            font-weight: normal;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .intro-description {
+            color: #fff;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Download button styling */
+        .download-button {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .download-button:hover, .download-button:focus {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .download-button:focus {
+            outline: 3px solid rgba(231, 76, 60, 0.5);
+            outline-offset: 2px;
+        }
+        
+        .download-button-icon {
+            margin-right: 10px;
+        }
+        
+        .fixed-download-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background-color: #e74c3c;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+        }
+        
+        .fixed-download-button:hover, .fixed-download-button:focus {
+            background-color: #c0392b;
+            transform: scale(1.1);
+        }
+        
+        .fixed-download-button:focus {
+            outline: 3px solid rgba(231, 76, 60, 0.5);
+            outline-offset: 2px;
+        }
+        
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .start-button {
+            background-color: white;
+            color: #3498db;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .start-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Flower image styling */
+        .flower-image {
+            position: absolute;
+            max-width: 100%;
+            height: auto;
+            z-index: 0;
+        }
+        
+        .flower-top-right {
+            top: 5%;
+            right: 5%;
+            width: 350px;
+            transform: rotate(15deg);
+            opacity: 0.7;
+        }
+        
+        .flower-bottom-left {
+            bottom: 5%;
+            left: 5%;
+            width: 350px;
+            transform: rotate(-15deg);
+            opacity: 0.7;
+        }
+        
+        .flower-top-left {
+            top: 10%;
+            left: 8%;
+            width: 350px;
+            transform: rotate(-10deg) scale(0.8);
+            opacity: 0.6;
+        }
+        
+        .flower-bottom-right {
+            bottom: 10%;
+            right: 8%;
+            width: 350px;
+            transform: rotate(10deg) scale(0.9);
+            opacity: 0.6;
+        }
+        
+        .flower-center-right {
+            top: 40%;
+            right: 5%;
+            width: 350px;
+            transform: rotate(5deg);
+            opacity: 0.5;
+        }
+        
+        .flower-center-left {
+            top: 45%;
+            left: 5%;
+            width: 350px;
+            transform: rotate(-5deg);
+            opacity: 0.5;
+        }
+        
+        /* Accessibility controls */
+        .accessibility-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .control-button {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .control-button:hover, .control-button:focus {
+            background-color: rgba(0, 0, 0, 0.9);
+            transform: scale(1.1);
+        }
+        
+        .control-button:focus {
+            outline: 3px solid white;
+            outline-offset: 2px;
+        }
+        
+        .skip-links {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            transition: top 0.3s;
+            z-index: 1001;
+        }
+        
+        .skip-links a {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 0 0 5px 5px;
+        }
+        
+        .skip-links a:focus {
+            top: 0;
+        }
+        
+        .screen-reader-text {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        
+        .screen-reader-text.active {
+            position: static;
+            width: auto;
+            height: auto;
+            overflow: visible;
+            clip: auto;
+            white-space: normal;
+        }
+        
+        .audio-announcement {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content {
+                padding: 1.5rem 2rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .nav {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+                width: calc(100% - 20px);
+            }
+            
+            .nav ul {
+                justify-content: center;
+            }
+            
+            .nav a {
+                padding: 5px 10px;
+                font-size: 0.8rem;
+            }
+            
+            .progress-container {
+                left: 10px;
+            }
+            
+            .intro-title {
+                font-size: 2.2rem;
+            }
+            
+            .intro-subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .flower-top-right {
+                width: 150px;
+                top: 3%;
+                right: 3%;
+            }
+            
+            .flower-bottom-left {
+                width: 130px;
+                bottom: 3%;
+                left: 3%;
+            }
+            
+            .flower-top-left, 
+            .flower-bottom-right,
+            .flower-center-right,
+            .flower-center-left {
+                width: 100px;
+            }
+
+            .accessibility-controls {
+                bottom: 10px;
+                left: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip links for keyboard navigation -->
+    <div class="skip-links">
+        <a href="#main-content" id="skip-to-content">Saltar al contenido principal</a>
+    </div>
+    
+    <!-- Screen reader announcement area -->
+    <div id="screen-reader-announcement" class="audio-announcement" aria-live="assertive"></div>
+    <nav class="nav" aria-label="Navegació principal">
+        <ul>
+            <li><a href="#introduccio">Introducció</a></li>
+            <li><a href="#lliri">Lliri</a></li>
+            <li><a href="#rosa">Rosa blanca</a></li>
+            <li><a href="#clavell">Clavell</a></li>
+            <li><a href="#dalia">Dàlia</a></li>
+            <li><a href="#margarida">Margarida</a></li>
+            <li><a href="#monument-infantil">Monument Infantil</a></li>
+            <li><a href="#monument-adult">Monument adult</a></li>
+        </ul>
+    </nav>
+    
+    <div class="progress-container" aria-label="Indicador de progrés">
+        <div class="progress-dot active" data-section="introduccio" aria-label="Introducció"></div>
+        <div class="progress-dot" data-section="lliri" aria-label="Lliri"></div>
+        <div class="progress-dot" data-section="rosa" aria-label="Rosa blanca"></div>
+        <div class="progress-dot" data-section="clavell" aria-label="Clavell"></div>
+        <div class="progress-dot" data-section="dalia" aria-label="Dàlia"></div>
+        <div class="progress-dot" data-section="margarida" aria-label="Margarida"></div>
+        <div class="progress-dot" data-section="monument-infantil" aria-label="Monument Infantil"></div>
+        <div class="progress-dot" data-section="monument-adult" aria-label="Monument adult"></div>
+    </div>
+
+    <!-- Accessibility controls -->
+    <div class="accessibility-controls">
+        <button id="playPauseButton" class="control-button" aria-label="Reproduir o pausar àudio">
+            ▶
+        </button>
+        <button id="previousSectionButton" class="control-button" aria-label="Secció anterior">
+            ◀
+        </button>
+        <button id="nextSectionButton" class="control-button" aria-label="Secció següent">
+            ▶
+        </button>
+    </div>
+
+    <!-- Introducció -->
+    <section id="introduccio" class="parallax-section" aria-labelledby="intro-title">
+        <div class="parallax-bg"></div>
+        <img src="images/flores.png" alt="Composició floral" class="flower-image flower-top-right" aria-hidden="true">
+        <img src="images/flores.png" alt="Composició floral" class="flower-image flower-bottom-left" aria-hidden="true">
+        <div class="intro-content" id="main-content">
+            <h1 id="intro-title" class="intro-title">Pètals de tradició</h1>
+            <h2 class="intro-subtitle">Ofrena de flors de Alacant</h2>
+            <p class="intro-description">Benvinguts a la versió digital accessible del llibret "Pètals de tradició", dedicat a l'Ofrena de Flors d'Alacant. Aquesta pàgina ha estat especialment dissenyada per a persones amb discapacitat visual, oferint una experiència auditiva completa del contingut tradicional.</p>
+            <div class="audio-container">
+                <h3 class="intro-description">Benvinguda i introducció</h3>
+                <!-- Download button -->
+            <a href="documents/Llibret_2025.pdf" class="download-button" download target="_blank">
+                <span class="download-button-icon">⬇</span> Descarregar llibret en PDF
+            </a>
+                <audio controls class="custom-audio" aria-label="Àudio d'introducció" data-section-id="introduccio" id="introAudio" autoplay>
+                    <source src="audio/introduccio.mp3" type="audio/mpeg">
+                    El teu navegador no suporta l'element d'àudio.
+                </audio>
+            </div>
+            <p class="screen-reader-text">Aquesta pàgina reproduirà automàticament els àudios i navegarà entre seccions. Pots utilitzar les tecles d'espai per pausar/reproduir, i les fletxes per navegar entre seccions.</p>
+        </div>
+    </section>
+
+    <!-- Lliri -->
+    <section id="lliri" class="parallax-section" aria-labelledby="lliri-title">
+        <div class="parallax-bg"></div>
+        <img src="images/flores.png" alt="Composició floral" class="flower-image flower-top-left" aria-hidden="true">
+        <img src="images/flores.png" alt="Composició floral" class="flower-image flower-bottom-right" aria-hidden="true">
+        <div class="content">
+            <h2 id="lliri-title">Lliri</h2>
+            <p>El lliri, símbol de puresa i majestuositat, és una de les flors més emblemàtiques de l'Ofrena de Flors d'Alacant. La seva elegància i aroma inconfusible el converteixen en un element essencial de la nostra tradició floral.</p>
+            <div class="audio-container">
+                <h3>Escolta la història del Lliri</h3>
+                <audio controls class="custom-audio" aria-label="Àudio sobre el Lliri" data-section-id="lliri">
+                    <source src="audio/lliri.mp3" type="audio/mpeg">
+                    El teu navegador no suporta l'element d'àudio.
+                </audio>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rosa blanca -->
+    <section id="rosa" class="parallax-section" aria-labelledby="rosa-title">
+        <div class="parallax-bg"></div>
+        <img src="images/flores.png" alt="Composició floral" class="flower-image flower-center-right" aria-hidden="true">
+        <img src="images/flores.png" alt="Composició floral" class="flower-image flower-bottom-left" aria-hidden="true">
+        <div class="content">
+            <h2 id="rosa-title">Rosa blanca</h2>
+            <p>La rosa blanca representa la puresa i l'amor sincer. En l'Ofrena de Flors d'Alacant, aquesta flor simbolitza el respecte i l'admiració cap a les nostres tradicions i la nostra patrona.</p>
+            <div class="audio-container">
+                <h3>Escolta la història de la Rosa blanca</h3>
+                <audio controls class="custom-audio" aria-label="Àudio sobre la Rosa blanca" data-section-id="rosa">
+                    <source src="audio/rosa.mp3" type="audio/mpeg">
+                    El teu navegador no suporta l'element d'àudio.
+                </audio>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clavell -->
+    <section id="clavell" class="parallax-section" aria-labelledby="clavell-title">
+        <div class="parallax-bg"></div>
+        <img src="images/flores.png" alt="Composició floral" class="flower-image flower-top-right" aria-hidden="true">
+        <img src="images/flores.png" alt="Composició floral" class="flower-image flower-center-left" aria-hidden="true">
+        <div class="content">
+            <h2 id="clavell-title">Clavell</h2>
+            <p>El clavell, amb la seva fragància intensa i els seus colors vius, és una de les flors més populars de l'Ofrena. Simbolitza l'amor, la fascinació i la distinció, i és àmpliament utilitzat en els rams que s'ofereixen durant la festivitat.</p>
+            <div class="audio-container">
+                <h3>Escolta la història del Clavell</h3>
+                <audio controls class="custom-audio" aria-label="Àudio sobre el Clavell" data-section-id="clavell">
+                    <source src="audio/clavell.mp3" type="audio/mpeg">
+                    El teu navegador no suporta l'element d'àudio.
+                </audio>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dàlia -->
+    <section id="dalia" class="parallax-section" aria-labelledby="dalia-title">
+        <div class="parallax-bg"></div>
+        <img src="images/flores.png" alt="Composició floral" class="flower-image flower-bottom-right" aria-hidden="true">
+        <img src="images/flores.png" alt="Composició floral" class="flower-image flower-top-left" aria-hidden="true">
+        <div class="content">
+            <h2 id="dalia-title">Dàlia</h2>
+            <p>La dàlia, amb la seva forma geomètrica i els seus colors variats, aporta elegància i diversitat a l'Ofrena de Flors. Representa la gratitud i el compromís amb les nostres arrels culturals i tradicions festives.</p>
+            <div class="audio-container">
+                <h3>Escolta la història de la Dàlia</h3>
+                <audio controls class="custom-audio" aria-label="Àudio sobre la Dàlia" data-section-id="dalia">
+                    <source src="audio/dalia.mp3" type="audio/mpeg">
+                    El teu navegador no suporta l'element d'àudio.
+                </audio>
+            </div>
+        </div>
+    </section>
+
+    <!-- Margarida -->
+    <section id="margarida" class="parallax-section" aria-labelledby="margarida-title">
+        <div class="parallax-bg"></div>
+        <img src="images/flores.png" alt="Composició floral" class="flower-image flower-center-right" aria-hidden="true">
+        <img src="images/flores.png" alt="Composició floral" class="flower-image flower-bottom-left" aria-hidden="true">
+        <div class="content">
+            <h2 id="margarida-title">Margarida</h2>
+            <p>La margarida, amb la seva senzillesa i bellesa natural, simbolitza la innocència i la lleialtat. En l'Ofrena, aquesta flor representa l'amor pur i sincer cap a les nostres tradicions i la nostra terra.</p>
+            <div class="audio-container">
+                <h3>Escolta la història de la Margarida</h3>
+                <audio controls class="custom-audio" aria-label="Àudio sobre la Margarida" data-section-id="margarida">
+                    <source src="audio/margarida.mp3" type="audio/mpeg">
+                    El teu navegador no suporta l'element d'àudio.
+                </audio>
+            </div>
+        </div>
+    </section>
+
+    <!-- Monument Infantil -->
+    <section id="monument-infantil" class="parallax-section" aria-labelledby="monument-infantil-title">
+        <div class="parallax-bg"></div>
+        <img src="images/flores.png" alt="Composició floral" class="flower-image flower-top-right" aria-hidden="true">
+        <img src="images/flores.png" alt="Composició floral" class="flower-image flower-bottom-left" aria-hidden="true">
+        <div class="content">
+            <h2 id="monument-infantil-title">Monument Infantil</h2>
+            <p>El Monument Infantil és una de les joies de l'Ofrena de Flors d'Alacant. Creat especialment per als més petits, aquest monument representa la continuïtat de les nostres tradicions a través de les noves generacions, mantenint viva la flama de la nostra cultura.</p>
+            <div class="audio-container">
+                <h3>Escolta la història del Monument Infantil</h3>
+                <audio controls class="custom-audio" aria-label="Àudio sobre el Monument Infantil" data-section-id="monument-infantil">
+                    <source src="audio/monument-infantil.mp3" type="audio/mpeg">
+                    El teu navegador no suporta l'element d'àudio.
+                </audio>
+            </div>
+        </div>
+    </section>
+
+    <!-- Monument adult -->
+    <section id="monument-adult" class="parallax-section" aria-labelledby="monument-adult-title">
+        <div class="parallax-bg"></div>
+        <img src="images/flores.png" alt="Composició floral" class="flower-image flower-top-left" aria-hidden="true">
+        <img src="images/flores.png" alt="Composició floral" class="flower-image flower-center-right" aria-hidden="true">
+        <img src="images/flores.png" alt="Composició floral" class="flower-image flower-bottom-right" aria-hidden="true">
+        <div class="content">
+            <h2 id="monument-adult-title">Monument adult</h2>
+            <p>El Monument adult és el punt culminant de l'Ofrena de Flors d'Alacant. Majestuós i imponent, aquest monument es cobreix de milers de flors ofertes pels alacantins i alacantines, creant un espectacle visual impressionant que representa l'amor i el respecte per les nostres tradicions.</p>
+            <div class="audio-container">
+                <h3>Escolta la història del Monument adult</h3>
+                <audio controls class="custom-audio" aria-label="Àudio sobre el Monument adult" data-section-id="monument-adult">
+                    <source src="audio/monument-adult.mp3" type="audio/mpeg">
+                    El teu navegador no suporta l'element d'àudio.
+                </audio>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Variables globals
+        const sections = document.querySelectorAll('.parallax-section');
+        const audioElements = document.querySelectorAll('audio');
+        const progressDots = document.querySelectorAll('.progress-dot');
+        const playPauseButton = document.getElementById('playPauseButton');
+        const previousSectionButton = document.getElementById('previousSectionButton');
+        const nextSectionButton = document.getElementById('nextSectionButton');
+        const screenReaderAnnouncement = document.getElementById('screen-reader-announcement');
+        let autoplayEnabled = true;
+        let currentSectionIndex = 0;
+        
+        // Función para anunciar a los lectores de pantalla
+        function announceToScreenReader(message) {
+            screenReaderAnnouncement.textContent = message;
+            
+            // Limpiar después de unos segundos para permitir nuevos anuncios
+            setTimeout(() => {
+                screenReaderAnnouncement.textContent = '';
+            }, 3000);
+        }
+        
+        // Función para actualizar el botón de reproducción/pausa
+        function updatePlayPauseButton() {
+            playPauseButton.textContent = autoplayEnabled ? '❚❚' : '▶';
+            playPauseButton.setAttribute('aria-label', autoplayEnabled ? 'Pausar àudio' : 'Reproduir àudio');
+        }
+        
+        // Función para alternar entre reproducción y pausa
+        function togglePlayPause() {
+            autoplayEnabled = !autoplayEnabled;
+            updatePlayPauseButton();
+            
+            if (autoplayEnabled) {
+                playCurrentSectionAudio();
+                announceToScreenReader('Reproducció automàtica activada');
+            } else {
+                pauseAllAudio();
+                announceToScreenReader('Reproducció automàtica pausada');
+            }
+        }
+        
+        // Función para pausar todos los audios
+        function pauseAllAudio() {
+            audioElements.forEach(audio => audio.pause());
+        }
+        
+        // Función para reproducir el audio de la sección actual
+        function playCurrentSectionAudio() {
+            if (!autoplayEnabled) return;
+            
+            // Pausar todos los audios
+            pauseAllAudio();
+            
+            // Reproducir el audio de la sección actual
+            const currentAudio = audioElements[currentSectionIndex];
+            
+            // Intentar reproducir el audio
+            currentAudio.play().catch(error => {
+                console.log('Error al reproducir automáticamente:', error);
+                // Si falla la reproducción automática, anunciamos al usuario
+                announceToScreenReader('Error al reproducir automáticamente. Presiona la tecla de espacio para iniciar la reproducción.');
+            });
+            
+            // Actualizar los indicadores de progreso
+            updateProgressDots();
+            
+            // Anunciar la sección actual para lectores de pantalla
+            const sectionTitle = sections[currentSectionIndex].querySelector('h1, h2').textContent;
+            announceToScreenReader(`Secció actual: ${sectionTitle}`);
+        }
+        
+        // Función para ir a la sección anterior
+        function goToPreviousSection() {
+            // Decrementar el índice de sección
+            currentSectionIndex = (currentSectionIndex - 1 + sections.length) % sections.length;
+            
+            // Desplazarse a la sección anterior
+            scrollToSection(sections[currentSectionIndex].id);
+            
+            // Reproducir el audio de la nueva sección
+            setTimeout(() => {
+                playCurrentSectionAudio();
+            }, 1000); // Esperar a que termine el desplazamiento
+        }
+        
+        // Función para ir a la siguiente sección
+        function goToNextSection() {
+            // Incrementar el índice de sección
+            currentSectionIndex = (currentSectionIndex + 1) % sections.length;
+            
+            // Desplazarse a la siguiente sección
+            scrollToSection(sections[currentSectionIndex].id);
+            
+            // Reproducir el audio de la nueva sección
+            setTimeout(() => {
+                playCurrentSectionAudio();
+            }, 1000); // Esperar a que termine el desplazamiento
+        }
+        
+        // Función para desplazarse a una sección específica
+        function scrollToSection(sectionId) {
+            const targetElement = document.getElementById(sectionId);
+            
+            window.scrollTo({
+                top: targetElement.offsetTop,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Función para actualizar los indicadores de progreso
+        function updateProgressDots() {
+            progressDots.forEach((dot, index) => {
+                if (index === currentSectionIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+        
+        // Efecto parallax al desplazarse
+        window.addEventListener('scroll', function() {
+            const parallaxBgs = document.querySelectorAll('.parallax-bg');
+            
+            parallaxBgs.forEach(bg => {
+                const section = bg.parentElement;
+                const sectionTop = section.offsetTop;
+                const scrollPosition = window.pageYOffset;
+                const windowHeight = window.innerHeight;
+                
+                // Comprobar si la sección está en el viewport
+                if (scrollPosition + windowHeight > sectionTop && 
+                    scrollPosition < sectionTop + section.offsetHeight) {
+                    
+                    // Calcular el desplazamiento parallax
+                    const yOffset = (scrollPosition - sectionTop) * 0.5;
+                    bg.style.transform = `translateY(${yOffset}px)`;
+                }
+            });
+            
+            // Actualizar la sección actual basada en el desplazamiento
+            sections.forEach((section, index) => {
+                const rect = section.getBoundingClientRect();
+                
+                // Si la sección está principalmente visible en la pantalla
+                if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                    if (currentSectionIndex !== index) {
+                        currentSectionIndex = index;
+                        updateProgressDots();
+                        
+                        // Si la autoreprodución está activada, reproducir el audio de la nueva sección
+                        if (autoplayEnabled) {
+                            playCurrentSectionAudio();
+                        }
+                    }
+                }
+            });
+        });
+        
+        // Configurar event listeners para los elementos de audio
+        audioElements.forEach((audio, index) => {
+            // Cuando termina un audio, ir a la siguiente sección
+            audio.addEventListener('ended', function() {
+                if (autoplayEnabled) {
+                    goToNextSection();
+                }
+            });
+        });
+        
+        // Configurar event listeners para los indicadores de progreso
+        progressDots.forEach((dot, index) => {
+            dot.addEventListener('click', function() {
+                currentSectionIndex = index;
+                scrollToSection(dot.getAttribute('data-section'));
+                
+                if (autoplayEnabled) {
+                    setTimeout(() => {
+                        playCurrentSectionAudio();
+                    }, 1000);
+                }
+            });
+            
+            // Hacer que los puntos de progreso sean accesibles por teclado
+            dot.setAttribute('tabindex', '0');
+            dot.setAttribute('role', 'button');
+            dot.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.click();
+                }
+            });
+        });
+        
+        // Configurar event listeners para los botones de control
+        playPauseButton.addEventListener('click', togglePlayPause);
+        previousSectionButton.addEventListener('click', goToPreviousSection);
+        nextSectionButton.addEventListener('click', goToNextSection);
+        
+        // Configurar event listeners para el teclado
+        document.addEventListener('keydown', function(e) {
+            // Espacio para reproducir/pausar
+            if (e.key === ' ' && !e.target.matches('button, a, input, textarea')) {
+                e.preventDefault();
+                togglePlayPause();
+            }
+            
+            // Flecha izquierda para sección anterior
+            if (e.key === 'ArrowLeft' && !e.target.matches('input, textarea')) {
+                e.preventDefault();
+                goToPreviousSection();
+            }
+            
+            // Flecha derecha para siguiente sección
+            if (e.key === 'ArrowRight' && !e.target.matches('input, textarea')) {
+                e.preventDefault();
+                goToNextSection();
+            }
+        });
+        
+        // Iniciar la reproducción automática al cargar la página
+        window.addEventListener('load', function() {
+            // Intentar reproducir el audio de introducción automáticamente
+            const introAudio = document.getElementById('introAudio');
+            
+            introAudio.play().then(() => {
+                // Si se reproduce correctamente, actualizar el estado
+                autoplayEnabled = true;
+                updatePlayPauseButton();
+                announceToScreenReader('Benvinguts a Pètals de tradició. La reproducció automàtica està activada. Utilitzeu la tecla d\'espai per pausar o reproduir, i les fletxes per navegar entre seccions.');
+            }).catch(error => {
+                // Si falla la reproducción automática, mostrar instrucciones
+                console.log('Error al reproducir automáticamente:', error);
+                autoplayEnabled = false;
+                updatePlayPauseButton();
+                announceToScreenReader('Per començar l\'experiència auditiva, premeu la tecla d\'espai o el botó de reproducció.');
+            });
+        });
+        
+        // Navegación suave para los enlaces de navegación
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href').substring(1);
+                
+                // Encontrar el índice de la sección
+                sections.forEach((section, index) => {
+                    if (section.id === targetId) {
+                        currentSectionIndex = index;
+                    }
+                });
+                
+                scrollToSection(targetId);
+                
+                if (autoplayEnabled) {
+                    setTimeout(() => {
+                        playCurrentSectionAudio();
+                    }, 1000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
