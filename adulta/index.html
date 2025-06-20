@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monumento Infantil</title>
+    <title>Monumento Adulto</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -24,14 +24,14 @@
         .container {
             background: white;
             border-radius: 20px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
             overflow: hidden;
             width: 100%;
             max-width: 900px;
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 50%, #3b82f6 100%);
             color: white;
             padding: 2rem;
             text-align: center;
@@ -44,14 +44,16 @@
             object-fit: contain;
             margin: 0 auto 1.5rem;
             display: block;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3));
+            border-radius: 12px;
         }
 
         .header h1 {
             font-size: 2rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
         }
 
         .header p {
@@ -62,6 +64,7 @@
 
         .content {
             padding: 2.5rem;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
         }
 
         .language-selector {
@@ -70,7 +73,7 @@
 
         .language-selector h2 {
             font-size: 1.2rem;
-            color: #374151;
+            color: #1e293b;
             margin-bottom: 1.5rem;
             text-align: center;
             font-weight: 600;
@@ -83,8 +86,8 @@
         }
 
         .language-btn {
-            background: #f8fafc;
-            border: 2px solid #e2e8f0;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #cbd5e1;
             border-radius: 12px;
             padding: 1rem;
             cursor: pointer;
@@ -98,20 +101,21 @@
             justify-content: center;
             gap: 0.5rem;
             min-height: 80px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
         .language-btn:hover {
-            background: #f1f5f9;
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
         }
 
         .language-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-color: #667eea;
+            background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+            border-color: #8b5cf6;
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
         }
 
         .flag {
@@ -131,7 +135,7 @@
             overflow: hidden;
             position: relative;
             aspect-ratio: 16/9;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
         }
 
         .video-player {
@@ -158,10 +162,11 @@
         .video-info {
             margin-top: 1.5rem;
             padding: 1.5rem;
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             border-radius: 12px;
             text-align: center;
             border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
 
         .video-title {
@@ -256,39 +261,48 @@
 
         /* Focus styles for accessibility */
         .language-btn:focus {
-            outline: 3px solid #667eea;
+            outline: 3px solid #8b5cf6;
             outline-offset: 2px;
         }
 
         .video-player:focus {
-            outline: 3px solid #667eea;
+            outline: 3px solid #8b5cf6;
             outline-offset: 2px;
         }
 
         /* Special styling for pictograms button */
         .language-btn[data-lang="pic"] {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            border-color: #fbbf24;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            border-color: #f59e0b;
             color: white;
         }
 
         .language-btn[data-lang="pic"]:hover {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
         }
 
         .language-btn[data-lang="pic"].active {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
             box-shadow: 0 8px 25px rgba(217, 119, 6, 0.5);
+        }
+
+        /* Elegant hover effects */
+        .container {
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-06-19%20at%2019.25.44-ZoVJWcrs7J0vAU3GiTszAMMHprAz7v.jpeg" alt="Monumento Infantil - Ilustración de niños con libros" class="header-image">
-            <h1>Monumento Infantil</h1>
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/WhatsApp%20Image%202025-06-20%20at%2012.49.45-UsZoCtr1ELV0NbxfByKmTveRc2WJck.jpeg" alt="Monumento Adulto - Ilustración artística con figuras simbólicas" class="header-image">
+            <h1>Monumento Adulto</h1>
             <p>Selecciona tu idioma preferido para ver el vídeo</p>
         </div>
         
@@ -327,18 +341,18 @@
                     aria-label="Reproductor de vídeo"
                     id="mainVideo"
                 >
-                    <source src="/monumento-infantil-es.mp4" type="video/mp4">
-                    <track kind="subtitles" src="/subtitles-es.vtt" srclang="es" label="Español" default>
+                    <source src="/monumento-adulto-es.mp4" type="video/mp4">
+                    <track kind="subtitles" src="/subtitles-adulto-es.vtt" srclang="es" label="Español" default>
                     Tu navegador no soporta el elemento de vídeo.
                 </video>
                 <div class="loading" id="loadingIndicator">Cargando vídeo...</div>
             </div>
 
             <div class="video-info">
-                <div class="video-title" id="videoTitle">Monumento Infantil - Español</div>
+                <div class="video-title" id="videoTitle">Monumento Adulto - Español</div>
                 <div class="video-description" id="videoDescription">
-                    Descubre la historia y el significado del Monumento Infantil a través de este vídeo educativo. 
-                    Selecciona diferentes idiomas arriba para ver el contenido en tu idioma preferido.
+                    Explora la profundidad histórica y el significado cultural del Monumento Adulto a través de este vídeo documental. 
+                    Una reflexión sobre el arte, la cultura y la sociedad contemporánea.
                 </div>
             </div>
         </div>
@@ -348,34 +362,34 @@
         // Video sources for different languages
         const videoSources = {
             es: {
-                src: '../audio/esp_inf.mp4',
-                subtitles: '/subtitles-es.vtt',
-                title: 'Monumento Infantil - Español',
-                description: 'Descubre la historia y el significado del Monumento Infantil a través de este vídeo educativo. Selecciona diferentes idiomas arriba para ver el contenido en tu idioma preferido.'
+                src: '../audio/ESP_ADULTA.mp4',
+                subtitles: '/subtitles-adulto-es.vtt',
+                title: 'Monumento Adulto - Español',
+                description: 'Explora la profundidad histórica y el significado cultural del Monumento Adulto a través de este vídeo documental. Una reflexión sobre el arte, la cultura y la sociedad contemporánea.'
             },
             val: {
-                src: '../audio/inf_valenciano.mp4',
-                subtitles: '/subtitles-val.vtt',
-                title: 'Monument Infantil - Valencià',
-                description: 'Descobreix la història i el significat del Monument Infantil a través d\'aquest vídeo educatiu. Selecciona diferents idiomes dalt per veure el contingut en el teu idioma preferit.'
+                src: '../audio/valenciano_adulta.mp4',
+                subtitles: '/subtitles-adulto-val.vtt',
+                title: 'Monument Adult - Valencià',
+                description: 'Explora la profunditat històrica i el significat cultural del Monument Adult a través d\'aquest vídeo documental. Una reflexió sobre l\'art, la cultura i la societat contemporània.'
             },
             en: {
-                src: '../audio/inf_ingles.mp4',
-                subtitles: '/subtitles-en.vtt',
-                title: 'Children\'s Monument - English',
-                description: 'Discover the history and meaning of the Children\'s Monument through this educational video. Select different languages above to view the content in your preferred language.'
+                src: '../audio/ingles_adulto.mp4',
+                subtitles: '/subtitles-adulto-en.vtt',
+                title: 'Adult Monument - English',
+                description: 'Explore the historical depth and cultural significance of the Adult Monument through this documentary video. A reflection on art, culture and contemporary society.'
             },
             fr: {
-                src: '../audio/inf_frances.mp4',
-                subtitles: '/subtitles-fr.vtt',
-                title: 'Monument des Enfants - Français',
-                description: 'Découvrez l\'histoire et la signification du Monument des Enfants à travers cette vidéo éducative. Sélectionnez différentes langues ci-dessus pour voir le contenu dans votre langue préférée.'
+                src: '../audio/frances_adulta.mp4',
+                subtitles: '/subtitles-adulto-fr.vtt',
+                title: 'Monument Adulte - Français',
+                description: 'Explorez la profondeur historique et la signification culturelle du Monument Adulte à travers cette vidéo documentaire. Une réflexion sur l\'art, la culture et la société contemporaine.'
             },
             pic: {
-                src: '../audio/picto_inf.mp4',
-                subtitles: '/subtitles-pic.vtt',
-                title: 'Monumento Infantil - Pictogramas',
-                description: 'Versión con pictogramas y comunicación visual para facilitar la comprensión del contenido sobre el Monumento Infantil.'
+                src: '../audio/picto_adulta.mp4',
+                subtitles: '/subtitles-adulto-pic.vtt',
+                title: 'Monumento Adulto - Pictogramas',
+                description: 'Versión con pictogramas y comunicación visual adaptada para facilitar la comprensión del contenido cultural y artístico del Monumento Adulto.'
             }
         };
 
@@ -463,7 +477,7 @@
         function hideLoading() {
             loadingIndicator.classList.remove('show');
         }
-
+        
         // Handle video errors
         function handleVideoError() {
             hideLoading();
